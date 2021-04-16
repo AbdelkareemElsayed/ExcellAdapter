@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Models\Imports;
-use App\Models\User;
+use App\Models\students;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 
-class importItems implements ToModel, WithHeadingRow
+class SecondSheetImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -15,8 +15,8 @@ class importItems implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        return new User([
-            'name'            => $row['name'],
+        return new students([
+            'name'                => $row['name'],
             'email'               => $row['email'],
     
         ]);
