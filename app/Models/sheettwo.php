@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class students extends Authenticatable
+class sheettwo extends Model
 {
     use HasFactory, Notifiable;
 
@@ -17,10 +17,13 @@ class students extends Authenticatable
      * @var array
      */
 
-     protected $table = "students";
+     protected $table = "sheettwo";
     protected $fillable = [
-        'name',
-        'email',
+            'product_num'         ,
+            'choice'              ,
+            'price'               ,
+            'feature'             ,
+            'display'             ,
     
     ];
 

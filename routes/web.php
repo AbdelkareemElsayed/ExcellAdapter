@@ -19,5 +19,9 @@ Route::get('/', function () {
 
 
 
-Route::get('importItems', 'itemsController@importView');
-Route::post('importAction', 'itemsController@importAction')->name('import');
+Route::get('importItems', 'EcellAdapterController@importView');
+Route::post('importAction', 'EcellAdapterController@importAction')->name('import');
+
+
+Route::get('importJson','JsonAdapterController@importView');
+Route::post('importJsonAction','JsonAdapterController@importAction')->name('importJson');

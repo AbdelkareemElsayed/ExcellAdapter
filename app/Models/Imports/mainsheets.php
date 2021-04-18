@@ -10,7 +10,7 @@ class mainsheets implements WithMultipleSheets
     public function sheets(): array
     {
         return [
-             0 => new FirstSheetImport(),
+             0 => new firstsheet(),
              1 => new SecondSheetImport(),
         ];
     }
