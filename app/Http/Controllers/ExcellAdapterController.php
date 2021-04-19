@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Imports\mainsheets;
 use Illuminate\Http\Request;
 use Excel;
+use File;
 
-class EcellAdapterController extends Controller
+class ExcellAdapterController extends Controller
 {
     //
     public function importView(){
@@ -22,7 +23,11 @@ class EcellAdapterController extends Controller
             'file' => 'required|mimes:cvs,xls,xlsx'
         ]);
 
-       $op =  Excel::import(new mainsheets,request()->file('file'));
+    //     $fileName = time().'.'.$request->file->extension();  
+    //   $op =   $request->file->move(public_path('uploads/Excel'), $fileName);
+
+        $op = Excel::import(new mainsheets,request()->file('file'));
+
              
         if($op){
               session()->flash('message','Data Uploaded Successfully');
@@ -33,6 +38,15 @@ class EcellAdapterController extends Controller
         
 
         return back();
+
+
+
+
+
+
+
+
+
     }
     
 }

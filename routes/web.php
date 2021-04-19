@@ -19,9 +19,15 @@ Route::get('/', function () {
 
 
 
-Route::get('importItems', 'EcellAdapterController@importView');
-Route::post('importAction', 'EcellAdapterController@importAction')->name('import');
+Route::get('importItems', 'ExcellAdapterController@importView');
+Route::post('importAction', 'ExcellAdapterController@importAction')->name('import');
 
 
 Route::get('importJson','JsonAdapterController@importView');
 Route::post('importJsonAction','JsonAdapterController@importAction')->name('importJson');
+
+
+Route::get('TextEditor',function(){
+    return view('editor');
+});
+

@@ -17,7 +17,7 @@ class sheetone extends Model
      * @var array
      */
 
-     protected $table = "sheetone";
+     protected $table = "tableSheetOne";
     protected $fillable = [
         'segment'                ,
         'country'                ,

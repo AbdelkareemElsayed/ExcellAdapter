@@ -15,6 +15,15 @@ class CreateJsonModelsTable extends Migration
     {
         Schema::create('json_models', function (Blueprint $table) {
             $table->id();
+            $table->string('FirstName');
+            $table->string('LastName');
+            $table->string('gender');
+            $table->integer('age');
+            $table->integer('streetAddress');
+            $table->string('city');
+            $table->string('state');
+            $table->string('type');
+            $table->string('number');
             $table->timestamps();
         });
     }

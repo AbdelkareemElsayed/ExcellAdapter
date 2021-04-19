@@ -2,37 +2,79 @@
 
 namespace App\Models\Imports;
 use App\Models\sheetone;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-
-class firstsheet implements ToModel, WithHeadingRow
+use DB;
+use Schema;
+class firstsheet implements ToCollection
 {
     /**
      * @param array $row
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
 
-        return new sheetone([
-            'segment'                => $row['segment'],
-            'country'                => $row['country'],
-            'product'                => $row['product'],
-            'discountBand'           => $row['discount_band'],
-            'unitSolid'              => $row['units_sold'],
-            'ManuFactoring'          => $row['manufacturing_price'],
-            "sale_price"             => $row['sale_price'],
-            "gross_sales"            => $row['gross_sales'],
-            "discounts"              => $row['discounts'],
-            "sales"                  => $row['sales'],
-            "cogs"                   => $row['cogs'],
-            "profit"                 => $row['profit'],
-            "date"                   => $row['date'],
-            "month_number"           => $row['month_number'],
-            "month_name"             => $row['month_name'],
-            "year"                   => $row['year'],
+        $str    ='';
+        $insert = '';
+        $append = '';
 
-        ]);
+    foreach($rows[0] as $data){
+    
+       if(empty($data)){
+           $data = 'testName'.rand();
+       } 
+        $str .= ','.str_replace('-','#',str_replace(' ','_',$data)). ' varchar(255)';
+        $insert .= str_replace('#','_',str_replace(' ','_',$data)).',';
+        $append .= '?,';
+   
     }
+
+
+    $count = count($rows[0]);
+    $table = "excellTable".time();
+
+
+    if (!Schema::hasTable($table)) {
+   
+  $createTableSqlString =
+  "CREATE TABLE ".$table." (
+    id int NOT NULL AUTO_INCREMENT" .$str." , PRIMARY KEY (id)
+);";
+    
+DB::statement($createTableSqlString);
+
+}
+
+
+     
+foreach ($rows as $key => $row) {
+    $colData = '';
+
+    if($key > 0){
+    for($i=0; $i < $count ;$i++){
+       
+        $colData .= "'$row[$i]',";
+    }
+
+    $colData = rtrim($colData,',');
+
+       DB::insert('insert into '.$table.' ('.rtrim($insert,',').') values ('.$colData.')' );
+    }
+
+        }
+
+
+
+
+        
+    }
+
+
+
+
+
+
 }
